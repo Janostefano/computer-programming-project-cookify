@@ -99,13 +99,12 @@ class RecipeDetailed extends React.Component {
     }
 
     like = () =>{
-        console.log(this.state);
-        let likesCount = this.state.currentRecipe.likes +1;
-        this.setState({likes: likesCount});
-        if (likesCount !== this.state.currentRecipe.likes){
-        axios.patch('http://127.0.0.1:8000/recipes/' + this.props.match.params.id + '/?format=json')
+        if (this.state.likes <= this.state.currentRecipe.likes) {
+            let likesCount = this.state.likes + 1;
+            this.setState({likes: likesCount});
+            axios.patch('http://127.0.0.1:8000/recipes/' + this.props.match.params.id + '/?format=json')
         }
-    }
+    };
 
     render() {
         return (!this.state.activeRecipe ? null : (<div className="container recipe-detailed-container">

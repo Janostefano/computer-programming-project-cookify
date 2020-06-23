@@ -25,8 +25,11 @@ npm install
 npm start
 
 contact page and navbar will be available without adding any recipes. in order to show the full potential of app
-it is advised to add at least 7 categories with at least 7 recipes in it as the app sorts them basing on views and
-displays maximum of 3 recipes and 6 categories on the main page, and 6 recipes when you enter specific category
+it is advised to add at least 7 categories with at least 7 recipes in one of them
+as the app sorts them basing on views anddisplays maximum of 3 recipes and 6
+categories on the main page, and 6 recipes when you enter specific category
+
+views and likes (clicking on like icon on detailed recipe page) are being registered
 
 Warning: in order to add fully working recipe, you have to create 
 category, recipe and then add step ingredients (consisting of ingredients) and step instructions linked to this recipe
