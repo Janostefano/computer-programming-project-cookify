@@ -32,7 +32,7 @@ class StepIngredients(models.Model):
     name = models.CharField("Name", max_length=50)
 
     def __str__(self):
-        return self.name
+        return self.name + " recipe: " + str(self.recipe.id)
 
 
 class Ingredient(models.Model):
@@ -50,7 +50,7 @@ class Ingredient(models.Model):
     steps = models.ForeignKey(StepIngredients, on_delete=models.CASCADE, related_name="ingredient", null=True)
 
     def __str__(self):
-        return self.name
+        return self.name + " recipe: " + str(self.steps.recipe.id)
 
 
 class StepInstructions(models.Model):
@@ -58,6 +58,8 @@ class StepInstructions(models.Model):
     name = models.CharField("Name", max_length=50)
     instruction = models.CharField(max_length=1000)
 
+    def __str__(self):
+        return self.name + " recipe: " + str(self.recipe.id)
 
 class Comment(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="comments")

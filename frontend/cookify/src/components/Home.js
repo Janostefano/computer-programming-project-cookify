@@ -69,7 +69,8 @@ class Home extends React.Component {
                 topSixCategories.push({id: category.id, views: category.views, originalIndex: categoriesList.length});
                 idsAlreadyAdded.push(category.id)
                 categoriesList.push(<div className="col-lg-2 col-md-3 col-sm-4"><CircularCategory photo={category.photo}
-                                                                                                  categoryName={category.name}/>
+                                                                                                  categoryName={category.name}
+                                                                                                    id = {category.id}/>
                 </div>)
             } else {
                 topSixCategories.sort((a, b) => a.views - b.views);

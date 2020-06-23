@@ -34,8 +34,6 @@ function StepInstructions(props) {
 
 class RecipeDetailed extends React.Component {
 
-
-
     constructor(props) {
         super(props);
         this.state = {shareBarFixed: false, activeRecipe : false, currentRecipe : null};
@@ -46,12 +44,25 @@ class RecipeDetailed extends React.Component {
         window.addEventListener("scroll", this.handleScroll)
         axios.get('http://127.0.0.1:8000/recipes/' + this.props.match.params.id + '/?format=json').then(res => {
             this.setState({currentRecipe: res.data, activeRecipe: true});
+            this.setState({likes: this.state.currentRecipe.likes})
         }).catch((error) =>{console.log(error)});
     };
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this.handleScroll)
     };
+
+    calculatePrepareTime(time){
+    let string = "";
+    string += Math.floor(time / 60) + ':';
+    let minutes = time % 60;
+    if (minutes ===0){
+        string += '00'
+    } else {
+        string += minutes
+    }
+    return string;
+}
 
     handleScroll() {
         let relPosition = document.getElementById("shareBarDiv").getBoundingClientRect().y;
@@ -87,14 +98,20 @@ class RecipeDetailed extends React.Component {
         return ingredientsList;
     }
 
+    like = () =>{
+        console.log(this.state);
+        let likesCount = this.state.currentRecipe.likes +1;
+        this.setState({likes: likesCount});
+        if (likesCount !== this.state.currentRecipe.likes){
+        axios.patch('http://127.0.0.1:8000/recipes/' + this.props.match.params.id + '/?format=json')
+        }
+    }
+
     render() {
         return (!this.state.activeRecipe ? null : (<div className="container recipe-detailed-container">
             <div className="title-description mt-5">
                 <h1>{this.state.currentRecipe.name}</h1>
                 <div className="recipe-info mt-3">
-                    <img className="avatar" src={"http://127.0.0.1:8000" + this.state.currentRecipe.photo} alt="avatar"/>
-                    <Link to={"author"}>{"author"}</Link>
-                    <p>Added on: {"15.03.2020"}</p>
                     <p>Difficulty: {this.state.currentRecipe.difficultyLevel}</p>
                 </div>
                 <h5 className="mt-3">{this.state.currentRecipe.description}</h5>
@@ -102,23 +119,17 @@ class RecipeDetailed extends React.Component {
             <div className="row photo-row mt-5">
                 <div className="col-lg-1 col-md-2 col-sm-12 share-bar-div" id="shareBarDiv">
                     <div className={"sharebar" + (this.state.shareBarFixed ? " docked" : "")}>
-                    <span className="button-span">
+                    <span onClick={this.like} className="likes">
                         <a className="fixed-button">
                             <IoIosThumbsUp className = "sharebar-icon"/>
-                            <p>{this.state.currentRecipe.likes}</p>
+                            <p>{this.state.likes}</p>
                         </a>
                     </span>
-                        <span>
+                        <span className= "time">
                         <a className="fixed-button latter-button">
                             <FaRegClock className = "sharebar-icon"/>
-                            <p>{Math.floor(this.state.currentRecipe.prepareTime / 60) + ":" + this.state.currentRecipe.prepareTime % 60}</p>
+                            <p>{this.calculatePrepareTime(this.state.currentRecipe.prepareTime)}</p>
                         </a>
-                    </span>
-                        <span>
-                        <a className="fixed-button latter-button"></a>
-                    </span>
-                        <span>
-                        <a className="fixed-button latter-button"></a>
                     </span>
                     </div>
                 </div>

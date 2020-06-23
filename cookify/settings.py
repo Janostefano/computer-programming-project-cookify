@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'recipes'
+    'recipes',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -84,12 +85,8 @@ WSGI_APPLICATION = 'cookify.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cookify',
-        'USER': os.getenv('COOKIFY_DB_USER'),
-        'PASSWORD': os.getenv('COOKIFY_DB_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME' : os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 
@@ -112,6 +109,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

@@ -19,20 +19,8 @@ function Heading(props) {
                     <li className="nav-item active">
                         <Link to="/" className="nav-link">Home</Link>
                     </li>
-                    <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recipes</a>
-                        <div className="dropdown-menu">
-                            <Link to="/recipes/breakfast" className="dropdown-item" href="/categories/breakfast/">Breakfast</Link>
-                            <a className="dropdown-item" href="/categories/lunch/">Lunch</a>
-                            <a className="dropdown-item" href="/categories/dinner/">Dinners</a>
-                            <a className="dropdown-item" href="/categories/dessert">Desserts</a>
-                            <a className="dropdown-item" href="/categories/snack/">Snacks</a>
-                            <a className="dropdown-item" href="/categories/drink">Drinks</a>
-                        </div>
-                    </li>
                     <li className="nav-item">
-                        <Link to="/account" className="nav-link" href="/account">Account</Link>
+                        <Link to="/contact" className="nav-link" href="/contact">Contact</Link>
                     </li>
                 </ul>
 
